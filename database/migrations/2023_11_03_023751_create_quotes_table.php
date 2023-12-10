@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('status');
             $table->text('notes')->nullable();
             $table->bigInteger('customer_id')->nullable();
             $table->timestamps();

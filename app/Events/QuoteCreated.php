@@ -20,20 +20,21 @@ class QuoteCreated extends Event
 
     public function apply(QuoteState $state)
     {
-        ray('apply');
+        // ray('apply');
         $state->code = $this->code;
         $state->notes = $this->notes;
         $state->customer_id = $this->customer_id;
 
-        ray($state);
+        // ray($state);
     }
 
-    public function onFire()
+    public function handle()
     {
-        ray('firing');
+        // ray('handle');
         Quote::create([
             'id' => $this->quote_id,
             'code' => $this->code,
+            'status' => 'draft',
             'notes' => $this->notes,
             'customer_id' => $this->customer_id,
         ]);

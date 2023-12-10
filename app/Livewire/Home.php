@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\QuoteApproved;
 use App\Events\QuoteCreated;
 use App\Models\Quote;
 use Livewire\Attributes\Computed;
@@ -9,9 +10,17 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    #[Computed]
+    public function quotes()
+    {
+        // ray('getting quotes from computed');
+
+        return Quote::all();
+    }
+
     public function createQuote()
     {
-        ray('creating quote');
+        // ray('creating quote');
         QuoteCreated::fire(
             code: 'QUOTE-001',
             notes: 'Note about a quote',
@@ -19,11 +28,12 @@ class Home extends Component
         );
     }
 
-    #[Computed]
-    public function quotes()
+    public function approve($quoteId)
     {
-        ray('getting quotes from computed');
-        return ray()->pass(Quote::all());
+        ray('fireQuoteApproved', $quoteId);
+        QuoteApproved::fire(
+            quote_id: $quoteId,
+        );
     }
 
     public function render()

@@ -3,7 +3,10 @@
 
     <div>
         @foreach($this->quotes as $quote)
-            <pre>{{ print_r($quote) }}</pre>
+            <div>
+                <button type="button" wire:click="approve('{{ $quote->id }}')">Approve</button>
+                <pre>{{ print_r($quote->toArray()) }}</pre>
+            </div>
         @endforeach
     </div>
 </div>
