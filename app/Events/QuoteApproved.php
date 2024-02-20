@@ -10,7 +10,7 @@ use Thunk\Verbs\Event;
 class QuoteApproved extends Event
 {
     #[StateId(QuoteState::class)]
-    public string $quote_id;
+    public int $quote_id;
 
     public function authorize(QuoteState $state)
     {

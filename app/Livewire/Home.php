@@ -28,7 +28,7 @@ class Home extends Component
         );
     }
 
-    public function approve($quoteId)
+    public function approve(int $quoteId)
     {
         ray('fireQuoteApproved', $quoteId);
         QuoteApproved::fire(
