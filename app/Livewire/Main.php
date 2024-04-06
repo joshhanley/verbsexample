@@ -9,24 +9,23 @@ use Livewire\Component;
 
 class Main extends Component
 {
-    public $invoice_id;
+    public $invoice_updated;
 
     public function mount()
     {
         $event = InvoiceCreated::ephemeral(invoice_number: 'INV-'.rand(1000, 9999));
 
-        $state = InvoiceState::loadEphemeral($event->invoice_id);
+        $state = $event->state(InvoiceState::class);
 
         ray($event, $state);
 
-        $this->invoice_id = $event->invoice_id;
+        $this->invoice_updated = InvoiceUpdated::make(invoice_id: $event->invoice_id);
     }
 
     public function updateInvoice()
     {
-        $event = InvoiceUpdated::ephemeral(invoice_id: $this->invoice_id, customer_name: 'John Doe');
-
-        $state = InvoiceState::loadEphemeral($this->invoice_id);
+        $event = $this->invoice_updated->ephemeral();
+        $state = $event->state(InvoiceState::class);
 
         ray($event, $state);
     }

@@ -1,5 +1,6 @@
 <div>
     <button type="button" wire:click="$refresh">Refresh</button>
+    <input type="text" wire:model="invoice_updated.customer_name" placeholder="Customer name">
     <button type="button" wire:click="updateInvoice">Update invoice</button>
 </div>
 
