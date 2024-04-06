@@ -13,6 +13,8 @@ class Main extends Component
 
     public function mount()
     {
+        ray('mount');
+
         $event = InvoiceCreated::ephemeral(invoice_number: 'INV-'.rand(1000, 9999));
 
         $state = $event->state(InvoiceState::class);
@@ -20,6 +22,11 @@ class Main extends Component
         ray($event, $state);
 
         $this->invoice_updated = InvoiceUpdated::make(invoice_id: $event->invoice_id);
+    }
+
+    public function hydrate()
+    {
+        ray('hydrate');
     }
 
     public function updateInvoice()
