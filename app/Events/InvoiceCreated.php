@@ -2,12 +2,21 @@
 
 namespace App\Events;
 
+use App\States\InvoiceState;
+use Thunk\Verbs\Attributes\Autodiscovery\StateId;
 use Thunk\Verbs\Event;
 
 class InvoiceCreated extends Event
 {
-    public function handle()
+    #[StateId(InvoiceState::class)]
+    public ?int $invoice_id = null;
+
+    public function __construct(
+        public string $invoice_number,
+    ) {}
+
+    public function apply(InvoiceState $state)
     {
-        // I play the hand that was dealt, I got a deck full of aces. I gave birth to your style, I need a check for my labor - Lil Wayne
+        $state->invoice_number = $this->invoice_number;
     }
 }
