@@ -1,4 +1,9 @@
 <div class="max-w-3xl mx-auto">
+    <input type="text" x-bind:value="$wire.invoice_state.customer_name" x-on:input="$wire.invoice_updated.customer_name = $event.target.value" placeholder="Customer name" class="px-3 py-1 border rounded">
+    <input type="text" wire:verbs="invoice_state.customer_name, invoice_updated.customer_name" placeholder="Customer name" class="px-3 py-1 border rounded">
+    <p>Invoice state customer name: {{ $invoice_state->customer_name }}</p>
+    {{-- @ray($invoice_updated) --}}
+    <p>Invoice updated customer name: {{ $invoice_updated->event->customer_name }}</p>
     <button type="button" wire:click="$refresh" class="px-3 py-1 border rounded hover:bg-gray-100">Refresh</button>
     <input type="text" wire:model="invoice_updated.customer_name" placeholder="Customer name" class="px-3 py-1 border rounded">
     <button type="button" wire:click="updateInvoice" class="px-3 py-1 border rounded hover:bg-gray-100">Update invoice</button>
@@ -26,26 +31,13 @@
     </div>
 </div>
 
+@ray(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class))
 <script>
-    @ray(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class))
-    document.addEventListener('livewire:init', () => {
-        let Verbs = {}
-        window.Verbs = Verbs
+document.addEventListener('livewire:init', () => {
+    let Verbs = {}
+    window.Verbs = Verbs
 
-        Verbs.events = @js(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class)->dehydrate())
-
-        Livewire.hook('request', ({ uri, options, payload, respond, succeed, fail }) => {
-            let body = JSON.parse(options.body)
-
-            body.verbs = { events: Verbs.events }
-
-            options.body = JSON.stringify(body)
-
-            succeed(({ status, json }) => {
-                Verbs.events = json.verbs.events
-
-                console.log('Verbs', Verbs)
-            })
-        })
-    })
+    Verbs.events = @js(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class)->dehydrate())
+})
 </script>
+<script src="verbs-livewire.js"></script>

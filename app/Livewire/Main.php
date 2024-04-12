@@ -12,7 +12,12 @@ use Livewire\Component;
 
 class Main extends Component
 {
+    // use VerbsComponent;
+    // #[reads('invoice_id', 'invoice1id')]
+    // public AssignTask $assign;
+    // public TaskState $task;
     public $invoice_id;
+    public InvoiceState $invoice_state;
     public $invoice_updated;
 
     #[Computed]
@@ -27,17 +32,20 @@ class Main extends Component
 
         $this->invoice_id = $event->invoice_id;
 
-        $state = $event->state(InvoiceState::class);
+        $this->invoice_state = $event->state(InvoiceState::class);
 
         $this->invoice_updated = InvoiceUpdated::make(invoice_id: $event->invoice_id);
     }
 
     public function updateInvoice()
     {
+        $this->invoice_updated->event->customer_name = 'Test';
         $event = $this->invoice_updated->ephemeral();
-        $state = $event->state(InvoiceState::class);
+        // $event = $this->fire('invoice_updated');
+        // $fire('invoice_updated');
+        // $this->invoice_state = $event->state(InvoiceState::class);
 
-        ray($event, $state);
+        ray($event, $this->invoice_state);
     }
 
     public function addLineItem(string $type = 'default')
