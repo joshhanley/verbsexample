@@ -12,6 +12,8 @@
 
 <body>
     {{ $slot }}
+    @ray(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class))
+    <script src="verbs-livewire.js" verbs:snapshot="{!! \Livewire\Drawer\Utils::escapeStringForHtml(app(\Thunk\Verbs\Lifecycle\EphemeralEventQueue::class)->dehydrate()) !!}"></script>
 </body>
 
 </html>

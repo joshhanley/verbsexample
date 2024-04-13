@@ -1,4 +1,20 @@
 document.addEventListener("livewire:init", () => {
+    let verbsScripts = document.querySelector('[verbs\\:snapshot]');
+
+    if (!verbsScripts) {
+        console.warn('Livewire Verbs: No Verbs snapshot found in the DOM.')
+
+        return
+    }
+
+    // Get the value of the 'verbs-snapshot' attribute
+    let verbsSnapshotEncoded = verbsScripts.getAttribute('verbs:snapshot')
+
+    let Verbs = {}
+    window.Verbs = Verbs
+
+    Verbs.events = JSON.parse(verbsSnapshotEncoded)
+
     Livewire.hook("request", ({ uri, options, payload, respond, succeed, fail }) => {
         let body = JSON.parse(options.body)
 

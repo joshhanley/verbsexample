@@ -20,12 +20,6 @@ class Main extends Component
     public InvoiceState $invoice_state;
     public $invoice_updated;
 
-    #[Computed]
-    public function invoice(): InvoiceState
-    {
-        return InvoiceState::loadEphemeral($this->invoice_id);
-    }
-
     public function mount()
     {
         $event = InvoiceCreated::ephemeral(invoice_number: 'INV-'.rand(1000, 9999));
@@ -39,7 +33,7 @@ class Main extends Component
 
     public function updateInvoice()
     {
-        $this->invoice_updated->event->customer_name = 'Test';
+        // $this->invoice_updated->event->customer_name = 'Test';
         $event = $this->invoice_updated->ephemeral();
         // $event = $this->fire('invoice_updated');
         // $fire('invoice_updated');
@@ -60,7 +54,7 @@ class Main extends Component
 
         $state = $event->state(InvoiceLineItemState::class);
 
-        ray('AddLineITem', $event, $state, $this->invoice);
+        ray('AddLineITem', $event, $state, $this->invoice_state);
     }
 
     public function render()
