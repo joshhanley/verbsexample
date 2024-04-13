@@ -21,12 +21,17 @@
             <button type="button" wire:click="addLineItem" class="px-3 py-1 border rounded hover:bg-gray-100">Add line item</button>
 
             <div>
-                @foreach ($this->invoice_state->line_items as $line_item)
-                    <div wire:key="{{ $line_item->id }}">
-                        <div>Line Item ID: {{ $line_item->id }}</div>
-                        <div>Line Item Type: {{ $line_item->type }}</div>
-                        <div>Line Item Title: {{ $line_item->title }}</div>
-                        <div>Line Item Value: {{ $line_item->value }}</div>
+                @foreach ($this->invoice_state->line_items as $index => $line_item_state)
+                    <div wire:key="{{ $line_item_state->id }}">
+                        <div>Line Item ID: {{ $line_item_state->id }}</div>
+                        <div>Line Item Type: {{ $line_item_state->type }}</div>
+                        <div>Line Item Title: {{ $line_item_state->title }}</div>
+                        <input
+                            type="text"
+                            wire:verbs="invoice_state.line_items.{{ $index }}.title, line_items.{{ $line_item_state->id }}.title"
+                            placeholder="Line item value"
+                            class="px-3 py-1 border rounded">
+                        <div>Line Item Value: {{ $line_item_state->value }}</div>
                     </div>
                 @endforeach
             </div>

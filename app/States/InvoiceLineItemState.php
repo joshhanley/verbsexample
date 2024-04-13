@@ -12,4 +12,10 @@ class InvoiceLineItemState extends State
     public ?string $title;
     public ?string $value;
     public ?Collection $children;
+
+    public function __construct()
+    {
+        ray('InvoiceLineItemState construct');
+        ray()->backtrace();
+    }
 }

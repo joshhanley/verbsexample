@@ -2,7 +2,7 @@
 
 namespace App\States;
 
-use Illuminate\Support\Collection;
+use Thunk\Verbs\Livewire\Dehydrate;
 use Thunk\Verbs\State;
 use Thunk\Verbs\Support\StateCollection;
 
@@ -18,6 +18,7 @@ class InvoiceState extends State
         $this->line_item_ids[] = $line_item_id;
     }
 
+    #[Dehydrate()]
     public function lineItems(): StateCollection
     {
         return StateCollection::loadEphemeral($this->line_item_ids, InvoiceLineItemState::class);
