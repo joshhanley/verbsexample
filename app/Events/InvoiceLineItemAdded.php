@@ -22,16 +22,11 @@ class InvoiceLineItemAdded extends Event
 
     public function applyInvoice(InvoiceState $state)
     {
-        ray('applyInvoice');
-        ray()->backtrace();
         $state->addLineItem($this->line_item_id);
-
-        ray('applyInvoiceAfter', $state);
     }
 
     public function applyLineItem(InvoiceLineItemState $state)
     {
-        ray('applyLineItem');
         $state->invoice_id = $this->invoice_id;
         $state->type = $this->type;
         $state->title = $this->title;
