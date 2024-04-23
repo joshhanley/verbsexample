@@ -1,29 +1,36 @@
 document.addEventListener("livewire:init", () => {
-    let verbsScripts = document.querySelector('[verbs\\:snapshot]');
+    let verbsScripts = document.querySelector('[verbs\\:events]');
 
     if (!verbsScripts) {
-        console.warn('Livewire Verbs: No Verbs snapshot found in the DOM.')
+        console.warn('Livewire Verbs: No Verbs events found in the DOM.')
 
         return
     }
 
-    // Get the value of the 'verbs-snapshot' attribute
-    let verbsSnapshotEncoded = verbsScripts.getAttribute('verbs:snapshot')
+    // Get the value of the 'verbs-events' attribute
+    let verbsEventsEncoded = verbsScripts.getAttribute('verbs:events')
 
     let Verbs = {}
     window.Verbs = Verbs
 
-    Verbs.events = JSON.parse(verbsSnapshotEncoded)
+    console.log(verbsEventsEncoded, JSON.parse(verbsEventsEncoded))
+
+    let eventData = JSON.parse(verbsEventsEncoded)
+
+    Verbs.events = eventData.events
+    Verbs.stateEvents = eventData.stateEvents
+    Verbs.eventsEncoded = verbsEventsEncoded
 
     Livewire.hook("request", ({ uri, options, payload, respond, succeed, fail }) => {
         let body = JSON.parse(options.body)
 
-        body.verbs = { events: Verbs.events }
+        body.verbs = { eventsEncoded: Verbs.eventsEncoded }
 
         options.body = JSON.stringify(body)
 
         succeed(({ status, json }) => {
             Verbs.events = json.verbs.events
+            Verbs.stateEvents = json.verbs.stateEvents
 
             console.log("Verbs", Verbs)
         })

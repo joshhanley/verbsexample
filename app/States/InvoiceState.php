@@ -21,6 +21,6 @@ class InvoiceState extends State
     #[Dehydrate()]
     public function lineItems(): StateCollection
     {
-        return StateCollection::loadEphemeral($this->line_item_ids, InvoiceLineItemState::class);
+        return StateCollection::load($this->line_item_ids, InvoiceLineItemState::class);
     }
 }
