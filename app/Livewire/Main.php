@@ -10,6 +10,7 @@ use App\States\InvoiceState;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Thunk\Verbs\Facades\Verbs;
+use Thunk\Verbs\Lifecycle\BrokerStore;
 use Thunk\Verbs\Support\PendingEvent;
 
 class Main extends Component
@@ -20,19 +21,11 @@ class Main extends Component
 
     public function boot()
     {
-        ray('boot');
-
         Verbs::standalone();
-    }
-
-    public function hydrate()
-    {
-        ray('hydrate');
     }
 
     public function mount()
     {
-        ray('mount');
         $event = InvoiceCreated::fire(invoice_number: 'INV-'.rand(1000, 9999));
 
         $this->invoice_state = $event->state(InvoiceState::class);
@@ -42,7 +35,7 @@ class Main extends Component
 
     public function updateInvoice()
     {
-        $this->invoice_updated->fire();
+        $event = $this->invoice_updated->fire();
 
         $this->invoice_updated = InvoiceUpdated::make(invoice_id: $this->invoice_state->id);
     }

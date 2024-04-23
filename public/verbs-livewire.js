@@ -31,6 +31,7 @@ document.addEventListener("livewire:init", () => {
         succeed(({ status, json }) => {
             Verbs.events = json.verbs.events
             Verbs.stateEvents = json.verbs.stateEvents
+            Verbs.eventsEncoded = json.verbs.eventsEncoded
 
             console.log("Verbs", Verbs)
         })
