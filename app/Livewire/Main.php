@@ -10,7 +10,6 @@ use App\States\InvoiceState;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Thunk\Verbs\Facades\Verbs;
-use Thunk\Verbs\Lifecycle\BrokerStore;
 use Thunk\Verbs\Support\PendingEvent;
 
 class Main extends Component
@@ -57,7 +56,7 @@ class Main extends Component
 
     public function addLineItem(string $type = 'default')
     {
-        $event = InvoiceLineItemAdded::ephemeral(
+        $event = InvoiceLineItemAdded::fire(
             invoice_id: $this->invoice_state->id,
             type: $type,
             title: 'Line Item '.rand(1000, 9999),

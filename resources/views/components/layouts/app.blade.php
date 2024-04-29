@@ -13,7 +13,7 @@
 <body>
     {{ $slot }}
     @ray(app(\Thunk\Verbs\Lifecycle\BrokerStore::class)->current()->event_store)
-    <script src="verbs-livewire.js" verbs:events="{!! \Livewire\Drawer\Utils::escapeStringForHtml(app(\Thunk\Verbs\Lifecycle\BrokerStore::class)->current()->event_store->dehydrate()) !!}"></script>
+    @verbsScripts
 </body>
 
 </html>
