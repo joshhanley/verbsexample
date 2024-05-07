@@ -12,6 +12,7 @@
 
 <body>
     {{ $slot }}
+    @verbsScripts
 </body>
 
 </html>

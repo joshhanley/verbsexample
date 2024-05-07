@@ -2,12 +2,16 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "hirethunk/verbs": "dev-main",
+        "hirethunk/verbs": "*",
+        "hirethunk/verbs-livewire": "*",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
@@ -67,13 +71,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": {
-        "livewire/livewire": {
-            "type": "path",
-            "url": "/Users/josh/Development/packages/livewire"
-        },
         "hirethunk/verbs": {
             "type": "path",
-            "url": "/Users/josh/Development/packages/verbs"
+            "url": "/Users/danielcoulbourne/src/verbs"
+        },
+        "hirethunk/verbs-livewire": {
+            "type": "path",
+            "url": "/Users/danielcoulbourne/src/verbs-livewire"
         }
     }
 }
