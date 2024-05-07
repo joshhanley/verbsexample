@@ -12,7 +12,6 @@
 
 <body>
     {{ $slot }}
-    @ray(app(\Thunk\Verbs\Lifecycle\BrokerStore::class)->current()->event_store)
     @verbsScripts
 </body>
 

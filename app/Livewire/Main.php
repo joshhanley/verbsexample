@@ -15,12 +15,14 @@ use Thunk\Verbs\Support\PendingEvent;
 class Main extends Component
 {
     public InvoiceState $invoice_state;
+
     public PendingEvent $invoice_updated;
+
     public array $line_items = [];
 
     public function boot()
     {
-        Verbs::standalone();
+        Verbs::use('standalone');
     }
 
     public function mount()

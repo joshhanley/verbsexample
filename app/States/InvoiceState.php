@@ -2,13 +2,14 @@
 
 namespace App\States;
 
-use Thunk\Verbs\Livewire\Dehydrate;
 use Thunk\Verbs\State;
 use Thunk\Verbs\Support\StateCollection;
+use Thunk\VerbsLivewire\Livewire\Dehydrate;
 
 class InvoiceState extends State
 {
     public ?string $invoice_number;
+
     public ?string $customer_name = null;
 
     public array $line_item_ids = [];
